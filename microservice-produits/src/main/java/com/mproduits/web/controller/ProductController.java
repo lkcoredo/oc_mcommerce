@@ -18,7 +18,7 @@ public class ProductController {
     ProductDao productDao;
 
     // Affiche la liste de tous les produits disponibles
-    @GetMapping(value = "/roduits")
+    @GetMapping(value = "/produits")
     public List<Product> listeDesProduits(){
 
         List<Product> products = productDao.findAll();
