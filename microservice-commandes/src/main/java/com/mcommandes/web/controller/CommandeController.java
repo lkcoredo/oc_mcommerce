@@ -5,6 +5,8 @@ import com.mcommandes.dao.CommandesDao;
 import com.mcommandes.model.Commande;
 import com.mcommandes.web.exceptions.CommandeNotFoundException;
 import com.mcommandes.web.exceptions.ImpossibleAjouterCommandeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.Optional;
 
 @RestController
 public class CommandeController {
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     CommandesDao commandesDao;
@@ -25,6 +29,7 @@ public class CommandeController {
 
         if(nouvelleCommande == null) throw new ImpossibleAjouterCommandeException("Impossible d'ajouter cette commande");
 
+        log.info("Création d'une nouvelle commande");
         return new ResponseEntity<Commande>(commande, HttpStatus.CREATED);
     }
 
@@ -35,6 +40,7 @@ public class CommandeController {
 
         if(!commande.isPresent()) throw new CommandeNotFoundException("Cette commande n'existe pas");
 
+        log.info("Récupération de la commande n°" + id);
         return commande;
     }
 }
